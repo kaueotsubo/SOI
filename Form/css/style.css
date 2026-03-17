@@ -1,0 +1,343 @@
+/* --- Estilos Gerais --- */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #3FA14C, #e2e2e2);
+    color: #343a40;
+    margin: 0;
+    padding-top: 110px; /* IMPORTANTE: Adiciona espaço no topo para o cabeçalho fixo não sobrepor o conteúdo */
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* --- Cabeçalho Fixo --- */
+.logo-nome-fixo {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 2000;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 800px;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.logo-nome-fixo img {
+    height: 60px; /* Reduzi um pouco para melhor harmonia */
+    width: auto;
+    object-fit: scale-down;
+}
+
+.logo-nome-fixo span {
+    font-size: 1.2rem; /* Ajustei o tamanho da fonte */
+    font-weight: bold;
+    color: #343a40;
+    text-align: center;
+}
+
+/* --- Containers Principais --- */
+.container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    padding: 30px;
+    margin: 20px auto; /* Adiciona um espaço extra */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container para páginas de formulário (Login, Registro) */
+.container-form {
+    max-width: 500px;
+}
+
+/* Container para a página de menu com botões */
+.container-menu {
+    max-width: 900px;
+}
+
+.container h2 {
+    margin-bottom: 25px;
+    color: #343a40;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- Estilos de Botões (Padronizados) --- */
+.btn {
+    color: white;
+    font-size: 14px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Para links com a classe .btn */
+    display: inline-block;
+    text-align: center;
+}
+
+/* Botão Verde Padrão */
+.btn-verde {
+    background-color: #3FA14C;
+}
+
+.btn-verde:hover {
+    background-color: #2f813a; /* Verde um pouco mais escuro */
+}
+
+/* Botão Vermelho (Sair) */
+.btn-vermelho {
+    background-color: #dc3545;
+}
+
+.btn-vermelho:hover {
+    background-color: #c82333;
+}
+
+/* Container para alinhar botões do menu */
+.container-botoes {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha se não couberem */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+
+/* --- Estilos de Formulário --- */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espaço entre os campos do formulário */
+}
+
+.form-group {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f8f9fa;
+    font-size: 14px;
+    box-sizing: border-box; /* Garante que padding não afete a largura total */
+}
+
+/* --- Ajustes para Telas Pequenas (Mobile) --- */
+@media (max-width: 767px) {
+    body {
+        padding-top: 90px; /* Reduz o espaçamento para o cabeçalho menor */
+    }
+
+    .logo-nome-fixo {
+        padding: 5px 10px;
+        flex-direction: row; /* Garante que logo e nome fiquem lado a lado */
+        gap: 10px;
+    }
+
+    .logo-nome-fixo img {
+        height: 45px; /* Logo menor no celular */
+    }
+
+    .logo-nome-fixo span {
+        font-size: 0.9rem; /* Fonte menor para caber na tela */
+    }
+
+    .container-botoes {
+        flex-direction: column; /* Botões do menu um embaixo do outro */
+        width: 100%;
+    }
+
+    .container-botoes .btn {
+        width: 100%; /* Botões do menu ocupam a largura toda */
+    }
+}
+
+/* Adicione este código ao final do seu arquivo style.css */
+
+/* Estilos para a tabela de ocorrências */
+.table {
+    border-radius: 8px; /* Cantos arredondados para a tabela */
+    overflow: hidden;   /* Garante que os cantos do thead fiquem arredondados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Centraliza o texto verticalmente nas células */
+    text-align: center;     /* Centraliza o texto horizontalmente */
+}
+
+/* Deixa a coluna de descrição alinhada à esquerda para melhor leitura */
+.table td:nth-child(3) { /* O 3º filho (td) é a coluna de descrição */
+    text-align: left;
+}
+
+/* Botão secundário para ações como "Voltar" */
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    color: white;
+}
+/* Estilo para o botão de excluir de cada linha */
+.btn-excluir {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    background-color: #dc3545; /* Vermelho perigo do Bootstrap */
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #c82333; /* Vermelho mais escuro */
+    cursor: pointer;
+}
+
+/* Estilo para o botão de excluir tudo */
+.btn-excluir-tudo {
+    background-color: #c82333;
+    border-color: #c82333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir-tudo:hover {
+    background-color: #a71d2a;
+    color: white;
+}
+/* --- ESTILOS PARA TABELA RESPONSIVA COMO CARDS --- */
+
+/* Usamos uma Media Query para aplicar este estilo apenas em telas menores que 768px */
+@media (max-width: 768px) {
+
+    /* 1. Esconde o cabeçalho original da tabela */
+    .table thead {
+        display: none;
+    }
+
+    /* 2. Remove as bordas e ajusta as linhas para parecerem cards */
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    /* 3. Ajusta as células para se alinharem corretamente */
+    .table td {
+        text-align: right; /* Alinha o valor à direita */
+        padding-left: 50%; /* Dá espaço para o rótulo */
+        position: relative;
+        border: none;
+    }
+
+    /* 4. A mágica acontece aqui: cria o rótulo (label) antes do conteúdo da célula */
+    .table td::before {
+        content: attr(data-label); /* Pega o texto do atributo data-label que colocamos no JS */
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        text-align: left;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    /* Ajuste específico para o botão de ações ficar centralizado */
+    .table td[data-label="Ações"] {
+        padding: 15px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .table td[data-label="Ações"]::before {
+        display: none; /* Não precisa de rótulo para o botão */
+    }
+}
+
+/* --- CSS PARA FORMATAÇÃO DE IMPRESSÃO --- */
+
+@media print {
+
+    /* Esconde tudo que não queremos na impressão */
+    body > *:not(.container-para-impressao) {
+        display: none;
+    }
+
+    /* Mostra apenas o container da tabela e seu conteúdo */
+    .container-para-impressao {
+        display: block !important;
+    }
+    
+    /* Remove sombras, bordas e fundos desnecessários */
+    .container, .table {
+        box-shadow: none !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Garante que a tabela use toda a largura e o texto fique preto */
+    .table, .table td, .table th, h1 {
+        color: #000 !important;
+    }
+
+    /* Melhora a aparência do cabeçalho da tabela na impressão */
+    .table-dark {
+        background-color: #f2f2f2 !important; /* Um cinza claro para economizar tinta */
+    }
+
+    /* Remove a necessidade do div responsivo na impressão */
+    .table-responsive {
+        overflow: visible !important;
+    }
+}
