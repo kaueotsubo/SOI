@@ -1,4 +1,7 @@
-// js/lista.js - VERSÃO COM SWEETALERT2
+// js/lista.js - VERSÃO COM SWEETALERT2 E PROTEÇÃO CSRF
+
+// 1. Captura o token do HTML logo que o arquivo carrega
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch("api/lista.php") 
@@ -40,15 +43,19 @@ function confirmarExclusao(id) {
         text: "Esta ação é permanente e não pode ser desfeita!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33', // Vermelho
-        cancelButtonColor: '#3085d6', // Azul
+        confirmButtonColor: '#d33', 
+        cancelButtonColor: '#3085d6', 
         confirmButtonText: 'Sim, excluir!',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
             
             fetch(`api/excluir.php?id=${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                // 2. Adiciona o token no cabeçalho da requisição
+                headers: {
+                    'X-CSRF-Token': csrfToken
+                }
             })
             .then(response => response.json())
             .then(data => {
@@ -74,7 +81,6 @@ function confirmarExclusao(id) {
 
 // Função para excluir TODAS as ocorrências com dupla confirmação
 function confirmarExcluirTudo() {
-    // Primeira confirmação
     Swal.fire({
         title: 'VOCÊ ESTÁ PRESTES A EXCLUIR TUDO!',
         text: "Tem certeza que deseja apagar TODAS as ocorrências?",
@@ -87,13 +93,12 @@ function confirmarExcluirTudo() {
     }).then((result) => {
         if (result.isConfirmed) {
             
-            // Segunda confirmação (O "Tem certeza MESMO?")
             Swal.fire({
                 title: 'PERIGO!',
                 text: "Esta é sua última chance. Confirmar a exclusão de TODOS os registros permanentemente?",
-                icon: 'error', // Ícone de erro vermelho
+                icon: 'error', 
                 showCancelButton: true,
-                confirmButtonColor: '#000', // Preto para indicar alerta máximo
+                confirmButtonColor: '#000', 
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'EXCLUIR TUDO DEFINITIVAMENTE',
                 cancelButtonText: 'Me tire daqui!'
@@ -101,7 +106,11 @@ function confirmarExcluirTudo() {
                 if (secondResult.isConfirmed) {
                     
                     fetch('api/excluir.php?tudo=true', {
-                        method: 'DELETE'
+                        method: 'DELETE',
+                        // 3. Adiciona o token no cabeçalho aqui também
+                        headers: {
+                            'X-CSRF-Token': csrfToken
+                        }
                     })
                     .then(response => response.json())
                     .then(data => {

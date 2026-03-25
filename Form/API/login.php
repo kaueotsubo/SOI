@@ -40,6 +40,7 @@ try {
                         // Senha incorreta
                         $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
                         header("Location: ../index.html");
+                        exit();
                     }
                 } else {
                     // Usuário não encontrado

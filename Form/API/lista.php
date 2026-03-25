@@ -1,5 +1,13 @@
 <?php
 // api/get_ocorrencias.php
+
+// PROTEÇÃO: Impede que pessoas sem login vejam a lista de alunos
+if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
+    http_response_code(403);
+    echo json_encode(["error" => "Acesso negado. Você não está logado."]);
+    exit();
+}
+
 require_once '../classe/config.php'; // Puxando a conexão segura!
 
 $sql = "

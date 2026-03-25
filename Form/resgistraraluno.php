@@ -6,6 +6,11 @@ if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
     header("Location: index.html");
     exit();
 }
+
+// GERA O TOKEN CSRF
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +22,7 @@ if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
     <link rel="icon" href="https://www.ifac.edu.br/o-ifac/comunicacao/copy2_of_logomarcas/logo_ifac_2.png">
     <title>SOI - Sistema de Ocorrência do Integrado</title>
     <link href="css/style.css" rel="stylesheet">
-    </head>
+</head>
 
 <body>
     <header class="logo-nome-fixo">
@@ -28,6 +33,9 @@ if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
     <div class="container container-form">
         <h2>Registrar Ocorrência</h2>
         <form action="API/ocorrencia.php" method="POST">
+            
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf" placeholder="Ex: 000.000.000-00" maxlength="14" required>

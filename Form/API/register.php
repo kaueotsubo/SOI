@@ -1,58 +1,47 @@
 <?php
-
-// Incluindo as classes necessárias
 require_once __DIR__ . "/../classe/direcao.php";
 require_once __DIR__ . "/../classe/entidade.php";
-require_once __DIR__ . "/../classe/Gateway/direcaoGateway.php";
+require_once __DIR__ . "/../classe/gateway/direcaoGateway.php"; 
 require_once __DIR__ . "/../classe/assistente.php";
-require_once __DIR__ . "/../classe/Gateway/assistenteGateway.php";
+require_once __DIR__ . "/../classe/gateway/assistenteGateway.php";
 
-// Definindo credenciais de banco de dados
 require_once '../classe/config.php';
-// A partir daqui, a variável $pdo já existe e está pronta para uso!
 
-$errorMessage = ""; // Variável para armazenar a mensagem de erro
+$errorMessage = "";
 
 try {
-
-    // Configurando a classe direcaoGateway com a conexão estabelecida
     direcaoGateway::setConnection($pdo);
-
-    // Configurando a classe assistenteGateway com a conexão estabelecida
     assistenteGateway::setConnection($pdo);
 
-    // Criando uma instância da classe direcaoGateway
     $direcaoGateway = new direcaoGateway;
-
-    // Criando uma instância da classe assistenteGateway
     $assistenteGateway = new assistenteGateway;
 
-    // Verificando se o formulário foi submetido
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['username'];
-        $email = $_POST['email'];
-        $senha = isset($_POST['senha']) ? $_POST['senha'] : '';;
-        $role  = $_POST['role']; // pode ser "direcao" ou "assistente"
+        // Limpa o e-mail para evitar quebrar o banco (SQL Injection)
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); 
+        $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
+        $role  = $_POST['role']; 
 
-        // Validando os campos obrigatórios
-        //se o papel for direção
         if ($role === 'direcao') {
             $data = new stdClass();
             $data->nomeDirecao = $nome;
             $data->emailDirecao = $email;
             $data->senhaDirecao = password_hash($senha, PASSWORD_BCRYPT);
 
+            // Verifica existência
             $existente = $direcaoGateway->all("emailDirecao = '{$email}'");
             if (count($existente) > 0) {
-                $errorMessage = "Este e-mail já está em uso.";
+                // Em vez de tela branca, avisa o usuário e volta
+                echo "<script>alert('Este e-mail de Direção já está em uso.'); window.history.back();</script>";
+                exit();
             } else {
                 $direcaoGateway->save($data);
-                header('Location: ../index.html');
+                echo "<script>alert('Registro concluído!'); window.location.href='../index.html';</script>";
                 exit();
             }
-        }
-        //Se o papel for assistente
-        elseif ($role === 'assistente') {
+
+        } elseif ($role === 'assistente') {
             $data = new stdClass();
             $data->nomeAssistente = $nome;
             $data->emailAssistente = $email;
@@ -60,17 +49,19 @@ try {
 
             $existente = $assistenteGateway->all("emailAssistente = '{$email}'");
             if (count($existente) > 0) {
-                $errorMessage = "Este e-mail já está em uso.";
+                echo "<script>alert('Este e-mail de Assistente já está em uso.'); window.history.back();</script>";
+                exit();
             } else {
                 $assistenteGateway->save($data);
-                header('Location: ../index.html');
+                echo "<script>alert('Registro concluído!'); window.location.href='../index.html';</script>";
                 exit();
             }
         } else {
-            $errorMessage = "Por favor, preencha todos os campos obrigatórios.";
+            echo "<script>alert('Por favor, preencha todos os campos obrigatórios.'); window.history.back();</script>";
+            exit();
         }
     }
 } catch (Exception $e) {
-    // Capturando e exibindo erros
     print "Erro: " . $e->getMessage();
 }
+?>
