@@ -2,7 +2,7 @@
 
     //Classe ocorrencia
     require_once __DIR__ .'/entidade.php';
-    require_once __DIR__ .'/Gateway/ocorrenciaGateway.php';
+    require_once __DIR__ .'/gateway/ocorrenciaGateway.php';
     class Ocorrencia extends entidade {
         private static $conn;
 
