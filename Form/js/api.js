@@ -56,20 +56,11 @@ const inputCpf = document.getElementById('cpf');
 if (inputCpf) {
     inputCpf.addEventListener('input', function (e) {
         let valor = e.target.value;
-
-        // 1. Remove tudo o que não for número (letras, espaços, etc)
+      
         valor = valor.replace(/\D/g, "");
-
-        // 2. Coloca o primeiro ponto (após 3 números)
         valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-
-        // 3. Coloca o segundo ponto (após mais 3 números)
         valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-
-        // 4. Coloca o traço (antes dos últimos 2 números)
         valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-
-        // Atualiza o campo na tela com a formatação
         e.target.value = valor;
     });
 }
