@@ -2,7 +2,6 @@
 session_start();
 // Credenciais do banco de dados
 require_once '../classe/config.php';
-// A partir daqui, a variável $pdo já existe e está pronta para uso!
 
 try {
 
