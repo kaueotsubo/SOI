@@ -2,7 +2,7 @@
 
     //Classe Assistente
     require_once __DIR__ .'/entidade.php';
-    require_once __DIR__ .'/Gateway/assistenteGateway.php';
+    require_once __DIR__ .'/gateway/assistenteGateway.php';
     class Assistente extends entidade {
         private static $conn;
 
