@@ -1,6 +1,4 @@
-// js/lista.js - VERSÃO COM SWEETALERT2 E PROTEÇÃO CSRF
-
-// 1. Captura o token do HTML logo que o arquivo carrega
+// Captura o token do HTML logo que o arquivo carrega
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', function() {
