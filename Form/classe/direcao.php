@@ -2,7 +2,7 @@
 
     //Classe Direcao
     require_once __DIR__ .'/entidade.php';
-    require_once __DIR__ .'/Gateway/direcaoGateway.php';
+    require_once __DIR__ .'/gateway/direcaoGateway.php';
     class Direcao extends entidade {
         private static $conn;
 
