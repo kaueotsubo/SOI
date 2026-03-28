@@ -6,12 +6,12 @@ try {
     $stmt = $pdo->query("SELECT idCurso, nomeCurso FROM curso");
     $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    http_response_code(200); // Ponto 2: Avisa o JS que deu tudo certo!
+    http_response_code(200);
     header("Content-Type: application/json");
     echo json_encode($cursos);
 
 } catch (PDOException $e) {
-    http_response_code(500); // Avisa o JS que o banco falhou
+    http_response_code(500);
     echo json_encode(["error" => "Erro ao buscar cursos."]);
 }
 ?>

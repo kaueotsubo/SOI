@@ -39,6 +39,7 @@ if (empty($_SESSION['csrf_token'])) {
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" id="cpf" name="cpf" placeholder="Ex: 000.000.000-00" maxlength="14" required>
+                <div id="feedback-aluno" style="margin-top: 5px; font-weight: bold; font-size: 14px;"></div>
             </div>
             <div class="form-group">
                 <label for="cursoid">Cursos:</label>

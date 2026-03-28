@@ -1,4 +1,5 @@
-// Captura o token do HTML logo que o arquivo carrega
+// js/lista.js - VERSÃO COM SWEETALERT2 E PROTEÇÃO CSRF
+
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(o => {
                 rowsHtml += `
                     <tr>
-                        <td data-label="ID">${o.idOcorrencia}</td>
                         <td data-label="Data">${o.dataOcorrencia}</td>
                         <td data-label="Descrição">${o.descricao}</td>
                         <td data-label="Aluno">${o.nomeAluno}</td>
@@ -50,7 +50,6 @@ function confirmarExclusao(id) {
             
             fetch(`api/excluir.php?id=${id}`, {
                 method: 'DELETE',
-                // 2. Adiciona o token no cabeçalho da requisição
                 headers: {
                     'X-CSRF-Token': csrfToken
                 }
@@ -105,7 +104,6 @@ function confirmarExcluirTudo() {
                     
                     fetch('api/excluir.php?tudo=true', {
                         method: 'DELETE',
-                        // 3. Adiciona o token no cabeçalho aqui também
                         headers: {
                             'X-CSRF-Token': csrfToken
                         }

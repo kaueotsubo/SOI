@@ -41,7 +41,6 @@ if (empty($_SESSION['csrf_token'])) {
             <table id="tabelaOcorrencias" class="table table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th>ID</th>
                         <th>Data</th>
                         <th>Descrição</th>
                         <th>Aluno</th>

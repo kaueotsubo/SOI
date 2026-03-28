@@ -28,9 +28,12 @@ if (!isset($_SESSION['idDirecao'])) {
         <nav class="container-botoes" aria-label="Menu Principal">
             <a href="resgistraraluno.php" class="btn btn-verde">Registrar Ocorrência</a>
             <a href="lista.php" class="btn btn-verde">Ver lista de Ocorrência</a>
+            <a href="importar_alunos.php" class="btn btn-verde">Importar Alunos (CSV)</a>
             <a href="status.html" class="btn btn-verde">Verificar status do aluno</a>
-            <a href="API/logout.php" class="btn btn-vermelho">Sair</a>
         </nav>
+        <div style="margin-top: 35px; width: 100%; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 25px;">
+            <a href="API/logout.php" class="btn btn-vermelho">Sair</a>
+        </div>
     </div>
 </body>
 </html>

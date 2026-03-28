@@ -48,6 +48,7 @@ try {
 
         $gateway->save($ocorrencia);
 
+        // Redireciona de volta
         if (isset($_SESSION['idDirecao'])) {
             header("Location: ../home.php");
             exit();

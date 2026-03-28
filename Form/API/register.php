@@ -18,6 +18,7 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['username'];
+        // Limpa o e-mail para evitar quebrar o banco (SQL Injection)
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); 
         $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
         $role  = $_POST['role']; 
@@ -28,8 +29,10 @@ try {
             $data->emailDirecao = $email;
             $data->senhaDirecao = password_hash($senha, PASSWORD_BCRYPT);
 
+            // Verifica existência
             $existente = $direcaoGateway->all("emailDirecao = '{$email}'");
             if (count($existente) > 0) {
+                // Em vez de tela branca, avisa o usuário e volta
                 echo "<script>alert('Este e-mail de Direção já está em uso.'); window.history.back();</script>";
                 exit();
             } else {

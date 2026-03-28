@@ -1,13 +1,13 @@
 <?php
 // api/get_ocorrencias.php
 
-if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
+if (!isset($_SESSION['idDirecao'])) {
     http_response_code(403);
     echo json_encode(["error" => "Acesso negado. Você não está logado."]);
     exit();
 }
 
-require_once '../classe/config.php';
+require_once '../classe/config.php'; // Puxando a conexão segura!
 
 $sql = "
     SELECT 

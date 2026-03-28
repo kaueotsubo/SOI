@@ -16,7 +16,7 @@ if (empty($tokenEnviado) || !hash_equals($_SESSION['csrf_token'], $tokenEnviado)
     exit();
 }
 
-require_once '../classe/config.php';
+require_once '../classe/config.php'; // Puxando a conexão segura!
 
 $id = $_GET['id'] ?? null;
 $tudo = $_GET['tudo'] ?? null;
