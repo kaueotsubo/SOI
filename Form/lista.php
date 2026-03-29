@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['idDirecao'])) {
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
     header("Location: index.html");
     exit();
 }
@@ -42,26 +42,27 @@ if (empty($_SESSION['csrf_token'])) {
                 <thead class="table-dark">
                     <tr>
                         <th>Data</th>
-                        <th>Descrição</th>
                         <th>Aluno</th>
                         <th>Curso</th>
                         <th>Gravidade</th>
                         <th>Tipo</th>
                         <th>Ano</th>
-                        <th style="width: 120px;">Ações</th>
+                        <th class="text-center" style="width: 120px;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
-            <div class="d-flex justify-content-between mt-4">
-                <a href="home.php" class="btn btn-secondary">Voltar</a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-4 d-print-none">
+                <a href="home.php" class="btn btn-secondary">
+                    Voltar
+                </a>
 
-                <button onclick="window.print()" class="btn btn-info">
+                <button onclick="window.print()" class="btn btn-info text-white">
                     <i class="fas fa-print"></i> Imprimir / Gerar PDF
                 </button>
 
-                <button onclick="confirmarExcluirTudo()" class="btn btn-excluir-tudo">
+                <button onclick="confirmarExcluirTudo()" class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i> Excluir Tudo
                 </button>
             </div>

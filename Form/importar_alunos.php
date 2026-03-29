@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['idDirecao'])) {
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
     header("Location: index.html");
     exit();
 }

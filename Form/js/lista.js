@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 rowsHtml += `
                     <tr>
                         <td data-label="Data">${o.dataOcorrencia}</td>
-                        <td data-label="Descrição">${o.descricao}</td>
                         <td data-label="Aluno">${o.nomeAluno}</td>
                         <td data-label="Curso">${o.nomeCurso}</td>
                         <td data-label="Gravidade">${o.nivel}</td>

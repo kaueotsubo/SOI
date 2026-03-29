@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['idAssistente'])) {
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'assistente') {
     header("Location: index.html");
     exit();
 }

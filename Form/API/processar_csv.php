@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['idDirecao'])) {
-    die("Acesso negado. Apenas a direção pode realizar importações.");
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
+    http_response_code(403);
+    echo json_encode(["success" => false, "error" => "Acesso negado. Apenas a direção pode realizar esta ação."]);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

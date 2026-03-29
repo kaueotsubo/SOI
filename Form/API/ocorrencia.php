@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
-    die("Acesso negado. Você precisa estar logado.");
+if (!isset($_SESSION['idUsuario'])) {
+    http_response_code(403);
+    echo json_encode(["success" => false, "error" => "Acesso negado. Você precisa estar logado."]);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,16 +24,15 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cpf = $_POST['cpf'] ?? null;
-        $cursoId = $_POST['cursoid'] ?? null;
         $gravidadeId = $_POST['gravidadeid'] ?? null;
         $tipoId = $_POST['tipoid'] ?? null;
         $ano = $_POST['ano'] ?? null;
 
-        if (!$cpf || !$cursoId || !$gravidadeId || !$tipoId) {
+        if (!$cpf || !$gravidadeId || !$tipoId || !$ano) {
             throw new Exception("Todos os campos são obrigatórios.");
         }
 
-        $stmt = $pdo->prepare("SELECT idAluno FROM aluno WHERE cpf = ?");
+        $stmt = $pdo->prepare("SELECT idAluno, idCurso FROM aluno WHERE cpf = ?");
         $stmt->execute([$cpf]);
         $aluno = $stmt->fetch(PDO::FETCH_OBJ);
         
@@ -41,7 +42,7 @@ try {
 
         $ocorrencia = new stdClass();
         $ocorrencia->idAluno = $aluno->idAluno;
-        $ocorrencia->idCurso = $cursoId;
+        $ocorrencia->idCurso = $aluno->idCurso;
         $ocorrencia->idGravidade = $gravidadeId;
         $ocorrencia->idTipoOcorrencia = $tipoId;
         $ocorrencia->ano = $ano;
@@ -49,11 +50,15 @@ try {
         $gateway->save($ocorrencia);
 
         // Redireciona de volta
-        if (isset($_SESSION['idDirecao'])) {
+        if (isset($_SESSION['cargo']) && $_SESSION['cargo'] === 'direcao') {
             header("Location: ../home.php");
             exit();
-        } elseif (isset($_SESSION['idAssistente'])) {
+        } elseif (isset($_SESSION['cargo']) && $_SESSION['cargo'] === 'assistente') {
             header("Location: ../homea.php");
+            exit();
+        } else {
+            // Caso de segurança, se o cargo não for reconhecido, expulsa
+            header("Location: ../index.html");
             exit();
         }
     }

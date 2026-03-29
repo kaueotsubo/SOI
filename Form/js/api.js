@@ -1,16 +1,3 @@
-// carregar cursos no select
-fetch("./api/cursos.php")
-  .then(res => res.json())
-  .then(cursos => {
-    const select = document.getElementById("cursoid");
-    cursos.forEach(curso => {
-      const option = document.createElement("option");
-      option.value = curso.idCurso;   // IMPORTANTE -> pega o ID
-      option.textContent = curso.nomeCurso; // mostra o nome
-      select.appendChild(option);
-    });
-  });
-
 //Carregar Gravidade no select
 fetch("./api/gravidade.php")
   .then(res => res.json())
@@ -52,6 +39,7 @@ gravidadeSelect.addEventListener("change", () => {
 
 // Máscara automática para o campo de CPF
 const inputCpf = document.getElementById('cpf');
+const feedbackAluno = document.getElementById('feedback-aluno');
 
 if (inputCpf) {
     inputCpf.addEventListener('input', function (e) {

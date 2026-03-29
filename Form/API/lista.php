@@ -1,9 +1,10 @@
 <?php
 // api/get_ocorrencias.php
+session_start();
 
-if (!isset($_SESSION['idDirecao'])) {
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
     http_response_code(403);
-    echo json_encode(["error" => "Acesso negado. Você não está logado."]);
+    echo json_encode(["success" => false, "error" => "Acesso negado. Apenas a direção pode realizar esta ação."]);
     exit();
 }
 
@@ -13,7 +14,6 @@ $sql = "
     SELECT 
         o.idOcorrencia,
         o.dataOcorrencia,
-        o.descricao,
         a.nomeAluno,
         c.nomeCurso,
         g.nivel,
@@ -27,8 +27,14 @@ $sql = "
     ORDER BY o.dataOcorrencia DESC
 ";
 
-$stmt = $pdo->query($sql);
-$ocorrencia = $stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+    $stmt = $pdo->query($sql);
+    $ocorrencia = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-header("Content-Type: application/json");
-echo json_encode($ocorrencia);
+    header("Content-Type: application/json");
+    echo json_encode($ocorrencia);
+    
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Erro no banco: " . $e->getMessage()]);
+}

@@ -341,3 +341,53 @@ form {
         overflow: visible !important;
     }
 }
+#tabelaOcorrencias th:last-child,
+#tabelaOcorrencias td:last-child {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/* =========================================
+   REGRAS DE IMPRESSÃO (PDF / PAPEL)
+   ========================================= */
+
+@media print {
+    @page {
+        margin: 0; /* Zera a margem do papel onde a URL fica */
+    }
+
+    /* Zera as margens e usa PADDING para criar a borda sem vazar a página */
+    html, body {
+        margin: 0 !important;
+        padding: 1cm !important; /* Borda interna segura */
+        background-color: white !important;
+        height: auto !important; /* Evita que a página estique do nada */
+    }
+
+    .container, .container-para-impressao {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .table-responsive {
+        overflow: visible !important; /* Se ficar auto, ele cria a página fantasma */
+    }
+
+    * {
+        box-shadow: none !important;
+    }
+
+    .my-5, .pt-5, .mt-4 {
+        margin: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Esconde os botões e a coluna de Ações */
+    .d-print-none,
+    #tabelaOcorrencias th:last-child,
+    #tabelaOcorrencias td:last-child {
+        display: none !important;
+    }
+}

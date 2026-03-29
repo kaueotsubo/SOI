@@ -4,8 +4,9 @@ session_start();
 header("Content-Type: application/json");
 
 // Segurança básica
-if (!isset($_SESSION['idDirecao']) && !isset($_SESSION['idAssistente'])) {
-    echo json_encode(["success" => false, "error" => "Não autorizado."]);
+if (!isset($_SESSION['idUsuario'])) {
+    http_response_code(403);
+    echo json_encode(["success" => false, "error" => "Acesso negado. Você precisa estar logado."]);
     exit();
 }
 
