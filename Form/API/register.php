@@ -13,7 +13,6 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['username'];
-        // Limpa o e-mail para evitar quebrar o banco (SQL Injection)
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); 
         $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
         $role  = $_POST['role']; 
