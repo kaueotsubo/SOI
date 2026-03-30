@@ -3,8 +3,9 @@
 session_start();
 header("Content-Type: application/json");
 
-if (!isset($_SESSION['idDirecao'])) {
-    echo json_encode(["success" => false, "error" => "Acesso negado. Apenas a direção pode excluir registros."]);
+if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
+    http_response_code(403);
+    echo json_encode(["success" => false, "error" => "Acesso negado. Apenas a direção pode realizar esta ação."]);
     exit();
 }
 
