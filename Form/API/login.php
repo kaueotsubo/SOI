@@ -12,6 +12,13 @@ try {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $senha = $_POST['senha'];
         
+        // Verifica se o token CSRF é válido
+        $tokenEnviado = $_POST['csrf_token'] ?? '';
+        if (empty($tokenEnviado) || !hash_equals($_SESSION['csrf_token'], $tokenEnviado)) {
+            echo "<script>alert('Sua sessão expirou por inatividade. Por favor, atualize a página e tente novamente.'); window.location.href='../index.php';</script>";
+            exit();
+        }
+        
             // Valida o email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
@@ -43,13 +50,13 @@ try {
                     } else {
                         // Senha incorreta
                         $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
-                        header("Location: ../index.html");
+                        header("Location: ../index.php");
                         exit();
                     }
                 } else {
                     // Usuário não encontrado
                     $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
-                    header("Location: ../index.html");        
+                    header("Location: ../index.php");        
                 }
             }    
 

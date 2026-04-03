@@ -58,7 +58,7 @@ try {
             exit();
         } else {
             // Caso de segurança, se o cargo não for reconhecido, expulsa
-            header("Location: ../index.html");
+            header("Location: ../index.php");
             exit();
         }
     }

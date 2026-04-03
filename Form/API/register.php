@@ -12,7 +12,15 @@ try {
     $usuarioGateway = new usuarioGateway;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Verifica se o token CSRF é válido
+        $tokenEnviado = $_POST['csrf_token'] ?? '';
+        if (empty($tokenEnviado) || !hash_equals($_SESSION['csrf_token'], $tokenEnviado)) {
+            echo "<script>alert('Sua sessão expirou por inatividade. Por favor, atualize a página e tente novamente.'); window.history.back();</script>";
+            exit();
+        }
+
         $nome = $_POST['username'];
+        // Limpa o e-mail para evitar quebrar o banco (SQL Injection)
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); 
         $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
         $role  = $_POST['role']; 
@@ -34,7 +42,7 @@ try {
                 exit();
             } else {
                 $usuarioGateway->save($data);
-                echo "<script>alert('Registro concluído!'); window.location.href='../index.html';</script>";
+                echo "<script>alert('Registro concluído!'); window.location.href='../index.php';</script>";
                 exit();
             }
         } else {

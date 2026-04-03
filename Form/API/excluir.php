@@ -9,8 +9,7 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
     exit();
 }
 
-$headers = apache_request_headers();
-$tokenEnviado = isset($headers['X-CSRF-Token']) ? $headers['X-CSRF-Token'] : '';
+$tokenEnviado = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
 
 if (empty($tokenEnviado) || !hash_equals($_SESSION['csrf_token'], $tokenEnviado)) {
     echo json_encode(["success" => false, "error" => "Ação bloqueada: Falha de segurança (CSRF)."]);
