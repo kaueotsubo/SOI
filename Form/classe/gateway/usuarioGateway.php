@@ -17,7 +17,7 @@ class usuarioGateway {
     public function all ($filter, $class = 'stdClass') {
         $sql = "SELECT * FROM usuario";
         if ($filter) {
-            $sql .= " WHERE $filter"; // Nota: Filtros dinâmicos exigem cuidado extra, mas para esse projeto base atende bem.
+            $sql .= " WHERE $filter";
         }
         $result = self::$conn->query($sql);
         return $result->fetchAll(PDO::FETCH_CLASS, $class);
@@ -28,8 +28,8 @@ class usuarioGateway {
         return $stmt->execute([$id]);
     }
 
+    //Inicio do function save()
     public function save ($data) {
-        // AQUI ESTÁ A MÁGICA DE SEGURANÇA (Prepared Statements)
         if (empty($data->idUsuario)) { // Inserir
             $stmt = self::$conn->prepare("INSERT INTO usuario (nome, email, senha, cargo) VALUES (?, ?, ?, ?)");
             return $stmt->execute([

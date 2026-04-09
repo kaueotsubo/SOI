@@ -56,11 +56,10 @@ class OcorrenciaGateway {
         if (empty($data->idOcorrencia)) {
             // Inserir
             $stmt = self::$conn->prepare("
-                INSERT INTO ocorrencia (descricao, idAluno, idCurso, idGravidade, idTipoOcorrencia, ano)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO ocorrencia (idAluno, idCurso, idGravidade, idTipoOcorrencia, ano)
+                VALUES (?, ?, ?, ?, ?)
             ");
             return $stmt->execute([
-                $data->descricao,
                 $data->idAluno,
                 $data->idCurso,
                 $data->idGravidade,
@@ -71,11 +70,10 @@ class OcorrenciaGateway {
             // Atualizar
             $stmt = self::$conn->prepare("
                 UPDATE ocorrencia SET 
-                    descricao = ?, 
                     idAluno = ?, 
                     idCurso = ?, 
                     idGravidade = ?, 
-                    idTipoOcorrencia = ?
+                    idTipoOcorrencia = ?,
                     ano = ?
                 WHERE idOcorrencia = ?
             ");
@@ -93,9 +91,7 @@ class OcorrenciaGateway {
 
     // Retorna o último ID inserido
     public function getLastId() {
-        $stmt = self::$conn->query("SELECT MAX(idOcorrencia) as max FROM ocorrencia");
-        $data = $stmt->fetch(PDO::FETCH_OBJ);
-        return $data ? $data->max : null;
+        return self::$conn->lastInsertId();
     }
 
     // Valida se um ID existe na tabela (foreign key)

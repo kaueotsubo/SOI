@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'assistente') {
-    header("Location: index.html");
+    header("Location: index.php");
     exit();
 }
 ?>
@@ -27,7 +27,10 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'assistente') {
     <div class="container container-menu">
         <nav class="container-botoes" aria-label="Menu do Assistente">
             <a href="resgistraraluno.php" class="btn btn-verde">Registrar Ocorrência</a>
-            <a href="API/logout.php" class="btn btn-vermelho">Sair</a>
+            <form action="api/logout.php" method="POST" class="d-inline">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                <button type="submit" class="btn btn-danger">Sair</button>
+            </form>
         </nav>
     </div>
 </body>

@@ -32,6 +32,7 @@ try {
                 if ($row) {
                     // Compara a senha inserida com a senha no banco de dados usando password_verify
                     if (password_verify($senha, $row['senha'])) {
+                        session_regenerate_id(true); // Destrói o ID velho e cria um novo
                         // Credenciais corretas, armazena as informações na sessão
                         $_SESSION['idUsuario'] = $row['idUsuario'];
                         $_SESSION['email'] = $row['email'];

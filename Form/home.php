@@ -3,7 +3,7 @@ session_start();
 
 // Se não tiver logado OU se o cargo NÃO for direção, expulsa
 if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
-    header("Location: index.html");
+    header("Location: index.php");
     exit();
 }
 ?>
@@ -32,9 +32,10 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
             <a href="importar_alunos.php" class="btn btn-verde">Importar Alunos (CSV)</a>
             <a href="status.html" class="btn btn-verde">Verificar status do aluno</a>
         </nav>
-        <div style="margin-top: 35px; width: 100%; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 25px;">
-            <a href="API/logout.php" class="btn btn-vermelho">Sair</a>
-        </div>
+        <form action="api/logout.php" method="POST" class="d-inline">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <button type="submit" class="btn btn-danger">Sair</button>
+        </form>
     </div>
 </body>
 </html>

@@ -47,16 +47,12 @@ if (isset($_FILES['arquivo_csv']) && $_FILES['arquivo_csv']['error'] === UPLOAD_
                 $matricula = trim($dados[0] ?? '');
                 $nome = trim($dados[1] ?? '');
                 $cpf = trim($dados[2] ?? '');
-                // Pega o nome do curso da planilha e converte pra minúsculo pra comparar
                 $nomeCursoPlanilha = mb_strtolower(trim($dados[3] ?? ''), 'UTF-8'); 
                 
                 if (empty($nome) || empty($cpf) || empty($matricula) || empty($nomeCursoPlanilha)) {
                     continue; 
                 }
 
-                // ==========================================
-                // VERIFICA SE O CURSO DA PLANILHA EXISTE NO BANCO
-                // ==========================================
                 if (!isset($cursosBanco[$nomeCursoPlanilha])) {
                     // O curso que estava na planilha não existe no banco de dados! Pula esse aluno.
                     $ignoradosCurso++;
