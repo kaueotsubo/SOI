@@ -1,16 +1,20 @@
-// script.js
-
 document.getElementById('registerForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Impede o envio do formulário para testar
-
-    const senha = document.getElementById('password').value;
+    // Busca os valores usando os IDs exatos que estão no HTML
+    const senha = document.getElementById('senha').value;
     const confirmarSenha = document.getElementById('confpassword').value;
 
+    // Se as senhas forem diferentes, bloqueia o envio e avisa o usuário
     if (senha !== confirmarSenha) {
-        alert('As senhas não são iguais');
+        e.preventDefault(); // Impede o envio do formulário
+        Swal.fire({
+            icon: 'error',
+            title: 'Ops!',
+            text: 'As senhas não são iguais.',
+            confirmButtonText: 'Tentar novamente',
+            confirmButtonColor: '#0d6efd' // Cor azul do Bootstrap
+        });
         document.getElementById('confpassword').classList.add('is-invalid');
         return;
     }
-
-    alert('Cadastro válido!');
+    // Se as senhas forem iguais, remove a classe de erro (caso exista)
 });

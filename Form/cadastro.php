@@ -28,7 +28,7 @@ if (empty($_SESSION['csrf_token'])) {
     <div class="container mt-5">
         <div class="col-md-6">
             <h2>Cadastro</h2>
-            <form action="api/register.php" method="POST">
+            <form id="registerForm" action="api/register.php" method="POST">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="form-group">
                     <label for="username">Nome:</label>
@@ -62,6 +62,7 @@ if (empty($_SESSION['csrf_token'])) {
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js"></script>
 </body>
 

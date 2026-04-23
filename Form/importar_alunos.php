@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
-    header("Location: index.html");
+    header("Location: index.php");
     exit();
 }
 
