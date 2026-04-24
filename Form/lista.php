@@ -47,6 +47,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <th>Gravidade</th>
                         <th>Tipo</th>
                         <th>Ano</th>
+                        <th>responsável</th>
                         <th class="text-center" style="width: 120px;">Ações</th>
                     </tr>
                 </thead>

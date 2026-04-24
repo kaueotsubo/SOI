@@ -46,6 +46,7 @@ try {
         $ocorrencia->idGravidade = $gravidadeId;
         $ocorrencia->idTipoOcorrencia = $tipoId;
         $ocorrencia->ano = $ano;
+        $ocorrencia->idUsuario = $_SESSION['idUsuario'];
 
         $gateway->save($ocorrencia);
 

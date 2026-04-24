@@ -18,12 +18,14 @@ $sql = "
         c.nomeCurso,
         g.nivel,
         t.nomeTipo,
-        o.ano
+        o.ano,
+        u.nome AS nomeUsuario
     FROM ocorrencia o
     JOIN aluno a ON o.idAluno = a.idAluno
     JOIN curso c ON o.idCurso = c.idCurso
     JOIN gravidade g ON o.idGravidade = g.idGravidade
     JOIN tipo_ocorrencia t ON o.idTipoOcorrencia = t.idTipoOcorrencia
+    JOIN usuario u ON o.idUsuario = u.idUsuario
     ORDER BY o.dataOcorrencia DESC
 ";
 
