@@ -58,7 +58,7 @@ if (inputCpf) {
             feedbackAluno.innerHTML = '<span style="color: #6c757d;">Procurando aluno...</span>';
             
             // Faz a requisição para a nossa nova API
-            fetch(`./api/buscar_aluno.php?cpf=${valor}`)
+            fetch(`./api/buscar_aluno.php?cpf=${encodeURIComponent(valor)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {

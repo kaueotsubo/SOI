@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td data-label="Gravidade">${o.nivel}</td>
                         <td data-label="Tipo">${o.nomeTipo}</td>
                         <td data-label="Ano">${o.ano}</td>
+                        <td data-label="Responsável">${o.nomeUsuario}</td>
                         <td data-label="Ações">
                             <button class="btn btn-excluir" onclick="confirmarExclusao(${o.idOcorrencia})">
                                 <i class="fas fa-trash"></i>

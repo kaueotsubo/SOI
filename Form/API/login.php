@@ -50,14 +50,12 @@ try {
                         }
                     } else {
                         // Senha incorreta
-                        $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
-                        header("Location: ../index.php");
+                        header("Location: ../index.php?erro=1");
                         exit();
                     }
                 } else {
                     // Usuário não encontrado
-                    $errorMessage = "Senha ou usuário incorretos. Por favor, tente novamente.";
-                    header("Location: ../index.php");        
+                    header("Location: ../index.php?erro=1");       
                 }
             }    
 

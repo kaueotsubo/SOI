@@ -38,7 +38,8 @@ if (empty($_SESSION['csrf_token'])) {
             <button type="submit" name="entrar" class="btn btn-verde" style="margin-top: 15px;">Login</button>
         </form>
     </div>
-    <script src="/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

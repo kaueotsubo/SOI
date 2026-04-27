@@ -26,8 +26,8 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'assistente') {
 
     <div class="container container-menu">
         <nav class="container-botoes" aria-label="Menu do Assistente">
-            <a href="resgistraraluno.php" class="btn btn-verde">Registrar Ocorrência</a>
-            <form action="api/logout.php" method="POST" class="d-inline">
+            <a href="registrarocorrencia.php" class="btn btn-verde">Registrar Ocorrência</a>
+            <form action="api/logout.php" method="POST">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <button type="submit" class="btn btn-danger">Sair</button>
             </form>

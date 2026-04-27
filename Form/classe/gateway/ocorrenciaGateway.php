@@ -34,55 +34,49 @@ class OcorrenciaGateway {
     // Salvar ocorrência (INSERT ou UPDATE)
     public function save($data) {
         // Validação básica
-        if (empty($data->idAluno) || empty($data->idCurso) || empty($data->idGravidade) || empty($data->idTipoOcorrencia)) {
-            throw new Exception("Todos os campos obrigatórios devem existir no banco de dados.");
+        if (empty($data->idAluno) || empty($data->idCurso) || empty($data->idGravidade) || empty($data->idTipoOcorrencia) || empty($data->idUsuario)) {
+            throw new Exception("Todos os campos obrigatórios (incluindo o usuário responsável) devem existir.");
         }
 
-        // Valida foreign keys
+        // Valida foreign keys (Se a sua função validateForeignKey já existir no Gateway, ótimo!)
         $this->validateForeignKey('aluno', 'idAluno', $data->idAluno);
         $this->validateForeignKey('curso', 'idCurso', $data->idCurso);
         $this->validateForeignKey('gravidade', 'idGravidade', $data->idGravidade);
         $this->validateForeignKey('tipo_ocorrencia', 'idTipoOcorrencia', $data->idTipoOcorrencia);
-
-        // Pega descrição do tipo de ocorrência automaticamente
-        $stmt = self::$conn->prepare("SELECT descricao FROM tipo_ocorrencia WHERE idTipoOcorrencia = ?");
-        $stmt->execute([$data->idTipoOcorrencia]);
-        $tipo = $stmt->fetch(PDO::FETCH_OBJ);
-        if (!$tipo) {
-            throw new Exception("Tipo de ocorrência inválido.");
-        }
-        $data->descricao = $tipo->descricao;
+        $this->validateForeignKey('usuario', 'idUsuario', $data->idUsuario); // Valida se o usuário existe
 
         if (empty($data->idOcorrencia)) {
-            // Inserir
+            // INSERIR
             $stmt = self::$conn->prepare("
-                INSERT INTO ocorrencia (idAluno, idCurso, idGravidade, idTipoOcorrencia, ano)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO ocorrencia (idAluno, idCurso, idGravidade, idTipoOcorrencia, idUsuario, ano)
+                VALUES (?, ?, ?, ?, ?, ?)
             ");
             return $stmt->execute([
                 $data->idAluno,
                 $data->idCurso,
                 $data->idGravidade,
                 $data->idTipoOcorrencia,
+                $data->idUsuario, // NOVO CAMPO
                 $data->ano
             ]);
         } else {
-            // Atualizar
+            // ATUALIZAR
             $stmt = self::$conn->prepare("
                 UPDATE ocorrencia SET 
                     idAluno = ?, 
                     idCurso = ?, 
                     idGravidade = ?, 
                     idTipoOcorrencia = ?,
+                    idUsuario = ?,
                     ano = ?
                 WHERE idOcorrencia = ?
             ");
             return $stmt->execute([
-                $data->descricao,
-                $data->idAluno,
+                $data->idAluno,         // Corrigido: Removido o $data->descricao que estava sobrando aqui
                 $data->idCurso,
                 $data->idGravidade,
                 $data->idTipoOcorrencia,
+                $data->idUsuario,       // NOVO CAMPO
                 $data->ano,
                 $data->idOcorrencia
             ]);

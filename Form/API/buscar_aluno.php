@@ -12,10 +12,10 @@ if (!isset($_SESSION['idUsuario'])) {
 
 require_once '../classe/config.php';
 
-$cpf = $_GET['cpf'] ?? '';
+$cpf = trim($_GET['cpf'] ?? '');
 
 if (empty($cpf) || strlen($cpf) !== 14) {
-    echo json_encode(["success" => false, "error" => "CPF inválido."]);
+    echo json_encode(["success" => false, "error" => "O PHP recebeu: '{$cpf}' (Tamanho: " . strlen($cpf) . " caracteres)"]);
     exit();
 }
 
