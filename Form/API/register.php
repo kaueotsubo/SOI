@@ -43,6 +43,20 @@ function emitirAlerta($icone, $titulo, $texto, $redirecionarPara = null){
 }
 //fim da funcao emitirAlerta()
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'direcao') {
+    http_response_code(403);
+    emitirAlerta('error', 'Erro de Acesso','Acesso negado');
+    exit;
+}
+
+$token_post = $_POST['csrf_token'] ?? '';
+
+if (empty($token_post) || $token_post !== ($_SESSION['csrf_token'] ?? '')) {
+    http_response_code(403);
+    emitirAlerta('error', 'Error de requisição','Validação de segurança. Requisição bloqueada.');
+    exit;
+}
+
 $errorMessage = "";
 
 try {
@@ -63,6 +77,13 @@ try {
         $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
         $role  = $_POST['role'];
         $confirmarSenha = isset($_POST['confpassword']) ? $_POST['confpassword'] : '';
+        $cargos_permitidos = ['direcao', 'assistente'];
+
+        if (!in_array($role, $cargos_permitidos)){
+            http_response_code(400);
+            emitirAlerta('error', 'Ops!','O cargo fornecido é invalido');
+            exit;
+        }
 
         if ($senha !== $confirmarSenha){
             emitirAlerta('error', 'Ops!', 'As senhas não coincidem. Tente novamente.');
