@@ -1,14 +1,19 @@
 /* --- Estilos Gerais --- */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #3FA14C, #e2e2e2);
+   font-family: Arial, sans-serif;
+    background-color: #f2f7f3; /* Fundo base levemente esverdeado */
+    
+    /* Desenha linhas de grade para dar textura e quebrar o vazio */
+    background-image: linear-gradient(#d5e6d8 1px, transparent 1px),
+                      linear-gradient(90deg, #d5e6d8 1px, transparent 1px);
+    background-size: 40px 40px; /* Tamanho dos quadrados da grade */
+    
     color: #343a40;
     margin: 0;
-    padding-top: 110px; /* IMPORTANTE: Adiciona espaço no topo para o cabeçalho fixo não sobrepor o conteúdo */
+    padding-top: 110px;
     min-height: 100vh;
     box-sizing: border-box;
 }
-
 /* --- Cabeçalho Fixo --- */
 .logo-nome-fixo {
     position: fixed;
@@ -45,11 +50,15 @@ body {
 /* --- Containers Principais --- */
 .container {
     background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    border: 2px solid #d5e6d8; 
+    
+    /* Sombra bem mais suave para não parecer tão "pesado" */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); 
+    
     width: 90%;
-    padding: 30px;
-    margin: 20px auto; /* Adiciona um espaço extra */
+    padding: 40px 30px; /* Aumentei um pouco o padding vertical para respirar melhor */
+    margin: 20px auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -64,7 +73,7 @@ body {
 
 /* Container para a página de menu com botões */
 .container-menu {
-    max-width: 900px;
+    max-width: 600px;
 }
 
 .container h2 {
@@ -108,15 +117,31 @@ body {
     background-color: #c82333;
 }
 
-/* Container para alinhar botões do menu */
-.container-botoes {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os botões quebrem a linha se não couberem */
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+/* Deixamos essa regra mais forte juntando as classes, e usamos !important contra o Bootstrap */
+.container-botoes .btn.btn-vermelho {
+    background-color: #dc3545;
+    grid-column: 1 / -1; /* Ocupa a linha toda */
+    width: 50% !important; /* Fica apenas com metade do tamanho */
+    justify-self: center; /* Vai para o meio da tela */
+    margin-top: 15px; 
 }
 
+/* Container para alinhar botões do menu */
+.container-botoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Cria exatamente 2 colunas iguais */
+    gap: 15px; /* Espaço entre os botões */
+    width: 100%;
+}
+
+.container-botoes .btn {
+    width: 100%; 
+    height: 60px !important; /* Fixar a altura deixa o visual super limpo no Bootstrap */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
 
 /* --- Estilos de Formulário --- */
 form {
@@ -171,12 +196,12 @@ form {
     }
 
     .container-botoes {
-        flex-direction: column; /* Botões do menu um embaixo do outro */
-        width: 100%;
+        grid-template-columns: 1fr;
     }
 
     .container-botoes .btn {
-        width: 100%; /* Botões do menu ocupam a largura toda */
+        width: 100% !important; 
+        margin-top: 5px;
     }
 }
 
