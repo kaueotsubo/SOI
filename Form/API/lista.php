@@ -1,5 +1,5 @@
 <?php
-// api/get_ocorrencias.php
+// api/lista.php
 session_start();
 
 if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {

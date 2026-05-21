@@ -1,6 +1,16 @@
-// js/lista.js - VERSÃO COM SWEETALERT2 E PROTEÇÃO CSRF
+// js/lista.js - VERSÃO COM SWEETALERT2, PROTEÇÃO CSRF E PROTEÇÃO XSS
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch("api/lista.php") 
@@ -12,15 +22,15 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(o => {
                 rowsHtml += `
                     <tr>
-                        <td data-label="Data">${o.dataOcorrencia}</td>
-                        <td data-label="Aluno">${o.nomeAluno}</td>
-                        <td data-label="Curso">${o.nomeCurso}</td>
-                        <td data-label="Gravidade">${o.nivel}</td>
-                        <td data-label="Tipo">${o.nomeTipo}</td>
-                        <td data-label="Ano">${o.ano}</td>
-                        <td data-label="Responsável">${o.nomeUsuario}</td>
+                        <td data-label="Data">${escapeHTML(o.dataOcorrencia)}</td>
+                        <td data-label="Aluno">${escapeHTML(o.nomeAluno)}</td>
+                        <td data-label="Curso">${escapeHTML(o.nomeCurso)}</td>
+                        <td data-label="Gravidade">${escapeHTML(o.nivel)}</td>
+                        <td data-label="Tipo">${escapeHTML(o.nomeTipo)}</td>
+                        <td data-label="Ano">${escapeHTML(o.ano)}</td>
+                        <td data-label="Responsável">${escapeHTML(o.nomeUsuario)}</td>
                         <td data-label="Ações">
-                            <button class="btn btn-excluir" onclick="confirmarExclusao(${o.idOcorrencia})">
+                            <button class="btn btn-excluir" onclick="confirmarExclusao(${Number(o.idOcorrencia)})">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
