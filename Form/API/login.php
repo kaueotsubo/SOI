@@ -2,6 +2,7 @@
 session_start();
 // Credenciais do banco de dados
 require_once '../classe/config.php';
+require_once __DIR__ . '/../utils/ApiHelper.php';
 
 try {
 
@@ -62,5 +63,5 @@ try {
     }
 } catch (PDOException $e) {
     // Trata qualquer exceção relacionada ao banco de dados
-    echo "Erro de conexão com o banco de dados: " . $e->getMessage();
+    ApiHelper::error($e, "Login_Endpoint");
 }

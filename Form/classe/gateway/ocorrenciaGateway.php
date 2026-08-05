@@ -38,7 +38,7 @@ class OcorrenciaGateway {
             throw new Exception("Todos os campos obrigatórios (incluindo o usuário responsável) devem existir.");
         }
 
-        // Valida foreign keys (Se a sua função validateForeignKey já existir no Gateway, ótimo!)
+        // Valida foreign keys
         $this->validateForeignKey('aluno', 'idAluno', $data->idAluno);
         $this->validateForeignKey('curso', 'idCurso', $data->idCurso);
         $this->validateForeignKey('gravidade', 'idGravidade', $data->idGravidade);
@@ -72,7 +72,7 @@ class OcorrenciaGateway {
                 WHERE idOcorrencia = ?
             ");
             return $stmt->execute([
-                $data->idAluno,         // Corrigido: Removido o $data->descricao que estava sobrando aqui
+                $data->idAluno,        
                 $data->idCurso,
                 $data->idGravidade,
                 $data->idTipoOcorrencia,

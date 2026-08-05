@@ -15,6 +15,7 @@ if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST
     die("Erro de Segurança: Falha na validação do formulário (CSRF).");
 }
 
+require_once __DIR__ . '/../utils/ApiHelper.php';
 require_once '../classe/config.php';
 
 if (isset($_FILES['arquivo_csv']) && $_FILES['arquivo_csv']['error'] === UPLOAD_ERR_OK) {
@@ -87,11 +88,7 @@ if (isset($_FILES['arquivo_csv']) && $_FILES['arquivo_csv']['error'] === UPLOAD_
             throw new Exception("Não foi possível ler o arquivo.");
         }
     } catch (Exception $e) {
-        echo "<script>
-                alert('Erro ao processar o banco de dados: " . $e->getMessage() . "');
-                window.history.back();
-              </script>";
-        exit();
+        ApiHelper::error($e, "CSV_Processor");
     }
 
 } else {

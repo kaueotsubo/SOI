@@ -8,6 +8,7 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['cargo'] !== 'direcao') {
     exit();
 }
 
+require_once __DIR__ . '/../utils/ApiHelper.php';
 require_once '../classe/config.php'; // Puxando a conexão segura!
 
 $sql = "
@@ -37,6 +38,5 @@ try {
     echo json_encode($ocorrencia);
     
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(["success" => false, "error" => "Erro no banco: " . $e->getMessage()]);
+    ApiHelper::error($e, "List_Endpoint");
 }

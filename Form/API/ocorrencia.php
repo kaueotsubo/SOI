@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+require_once __DIR__ . '/../utils/ApiHelper.php';
 require_once '../classe/config.php';
 require_once '../classe/gateway/ocorrenciaGateway.php';
 
@@ -64,6 +65,6 @@ try {
         }
     }
 } catch (Exception $e) {
-    echo "Erro: " . $e->getMessage();
+    ApiHelper::error($e, "Ocorrencia_Endpoint");
 }
 ?>

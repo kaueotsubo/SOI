@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . "/../classe/usuario.php";
 require_once __DIR__ . "/../classe/entidade.php";
 require_once __DIR__ . "/../classe/gateway/usuarioGateway.php";
+require_once __DIR__ . '/../utils/ApiHelper.php';
 
 require_once '../classe/config.php';
 
@@ -117,6 +118,6 @@ try {
 
     }
 } catch (Exception $e) {
-    print "Erro: " . $e->getMessage();
+    ApiHelper::error($e, "Register_Endpoint");
 }
 ?>
