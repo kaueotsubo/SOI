@@ -1,0 +1,13 @@
+# Credenciais locais do banco
+src/Config/database_local.php
+
+# Dependências do Composer (se usarmos depois)
+vendor/
+
+# Configurações de ambiente
+.env
+.env.local
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
