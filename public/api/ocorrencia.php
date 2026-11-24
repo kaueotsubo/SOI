@@ -92,6 +92,78 @@ try {
         exit();
     }
 
+
+    // ---------- PATCH ----------
+    // Cancelar ocorrência: somente Direção
+    if ($method === 'PATCH') {
+
+        if (!$ehDirecao) {
+            http_response_code(403);
+            echo json_encode(['error' => 'Você não tem permissão para esta ação.']);
+            exit();
+        }
+
+        $id = filter_var(
+            $_GET['id'] ?? null,
+            FILTER_VALIDATE_INT
+        );
+
+        if (!$id || $id <= 0) {
+            http_response_code(400);
+            echo json_encode(['error' => 'ID da ocorrência inválido.']);
+            exit();
+        }
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!is_array($data)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Dados inválidos.']);
+            exit();
+        }
+
+        $motivo = trim((string) ($data['motivo_cancelamento'] ?? ''));
+
+        if ($motivo === '') {
+            http_response_code(400);
+            echo json_encode(['error' => 'Informe o motivo do cancelamento.']);
+            exit();
+        }
+
+        // Verifica se a ocorrência existe
+        $ocorrencia = $ocorrenciaService->buscarOcorrenciaPorId($id);
+
+        if (!$ocorrencia) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Ocorrência não encontrada.']);
+            exit();
+        }
+
+        // Impede cancelar novamente uma ocorrência cancelada
+        if ($ocorrencia['status'] !== 'ATIVA') {
+            http_response_code(409);
+            echo json_encode(['error' => 'Esta ocorrência já está cancelada.']);
+            exit();
+        }
+
+        $resultado = $ocorrenciaService->cancelarOcorrencia(
+            $id,
+            $usuario['id'],
+            $motivo
+        );
+
+        if ($resultado['success']) {
+            http_response_code(200);
+            echo json_encode(['message' => $resultado['message']]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => $resultado['message']]);
+        }
+
+        exit();
+    }
+
+
     http_response_code(405);
     echo json_encode(['error' => 'Método não permitido']);
 

@@ -56,7 +56,7 @@
                 throw new InvalidArgumentException("A matrícula não pode ser vazia.");
             }
 
-            else if (!preg_match('/^\d{19}$/', $matricula)) {
+            else if (!preg_match('/^\d{5}CRB\d{11}$/', $matricula)) {
                 throw new InvalidArgumentException("A matrícula deve conter exatamente 19 dígitos numéricos.");
             }
 
@@ -107,7 +107,7 @@
             }
 
             // Validar matrícula
-            else if (!preg_match('/^\d{19}$/', $data->matricula)) {
+            else if (!preg_match('/^\d{5}CRB\d{11}$/', $data->matricula)) {
                 throw new InvalidArgumentException("A matrícula deve conter exatamente 19 dígitos numéricos.");
             }
 

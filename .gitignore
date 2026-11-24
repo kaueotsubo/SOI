@@ -1,7 +1,8 @@
+
 # Credenciais locais do banco
 src/Config/database_local.php
 
-# Dependências do Composer (se usarmos depois)
+# Dependências do Composer
 vendor/
 
 # Configurações de ambiente
@@ -11,3 +12,16 @@ vendor/
 # Arquivos do sistema
 .DS_Store
 Thumbs.db
+
+# Ambiente virtual Python
+.venv/
+venv/
+
+# Cache e arquivos temporários Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Relatórios e evidências dos testes
+tests/reports/*
+!tests/reports/.gitkeep

@@ -253,7 +253,7 @@
             if (valor.length > 100) return 'O nome não pode ter mais de 100 caracteres.';
             if (!/^[\p{L}\s]+$/u.test(valor)) return 'Use apenas letras e espaços no nome.';
         } else if (modo === 'matricula') {
-            if (!/^\d{19}$/.test(valor)) return 'A matrícula deve ter exatamente 19 dígitos numéricos.';
+            if (!/^\d{5}CRB\d{11}$/.test(valor)) return 'A matrícula deve ter exatamente 19 dígitos numéricos.';
         } else if (modo === 'cpf') {
             const digitos = valor.replace(/\D/g, '');
             if (!/^\d{11}$/.test(digitos)) return 'O CPF deve ter 11 dígitos.';

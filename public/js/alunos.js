@@ -39,4 +39,5 @@
             { rotulo: 'Registrar ocorrência', classe: 'btn-verde', aoClicar: irParaNova },
         ],
     });
+    document.documentElement.dataset.buscaAlunosPronta = 'true';
 })();
